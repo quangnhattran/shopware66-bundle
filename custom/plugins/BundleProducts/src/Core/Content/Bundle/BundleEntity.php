@@ -17,9 +17,9 @@ class BundleEntity extends Entity
 
     protected float $discount;
 
-    protected BundleTranslationCollection $translations;
+    protected ?BundleTranslationCollection $translations = null;
 
-    protected ProductCollection $products;
+    protected ?ProductCollection $products = null;
 
     public function getName(): ?string
     {
@@ -51,7 +51,7 @@ class BundleEntity extends Entity
         $this->discount = $discount;
     }
 
-    public function getTranslations(): BundleTranslationCollection
+    public function getTranslations(): ?BundleTranslationCollection
     {
         return $this->translations;
     }

@@ -22,9 +22,9 @@
                 <sw-card-view>
                     <sw-card v-if="bundle" :isLoading="isLoading">
                         <sw-text-field v-model:value="bundle.name" :label="$tc('bundle.detail.nameLabel')"></sw-text-field>
-                        <sw-number-field v-model="bundle.discount" :label="$tc('bundle.detail.discountLabel')"></sw-number-field>
+                        <sw-number-field v-model:value="bundle.discount" :label="$tc('bundle.detail.discountLabel')"></sw-number-field>
                         <sw-radio-field
-                            v-model="bundle.discountType"
+                            v-model:value="bundle.discountType"
                             :label="$tc('bundle.detail.discountTypeLabel')"
                             :options="options"
                         >
@@ -32,14 +32,9 @@
                         <sw-entity-many-to-many-select
                                 :localMode="bundle.isNew()"
                                 :label="$t('bundle.detail.assignProductsLabel')"
-                                :entity-collection="bundle.products">
+                                :entityCollection="bundle.products"
+                                @update:entity-collection="bundle.products = $event">
                         </sw-entity-many-to-many-select>
-                        {#<sw-entity-many-to-many-select
-                                :label="$t('swag-bundle.detail.assignedProductsLabel')"
-                                :localMode="true"
-                                labelProperty="name"
-                                v-model="bundle.products">
-                        </sw-entity-many-to-many-select>#}
                     </sw-card>
                 </sw-card-view>
             {% endblock %}

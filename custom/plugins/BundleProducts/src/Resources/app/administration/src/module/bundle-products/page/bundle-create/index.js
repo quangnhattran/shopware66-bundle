@@ -1,14 +1,25 @@
 const { Component } = Shopware;
 
 Component.extend('bundle-create', 'bundle-detail', {
+    data() {
+        return {
+            bundle: {
+                name: '',
+                discount: null,
+                discountType: '',
+                products: [],
+            }
+        };
+    },
     methods: {
         getBundle() {
             this.bundle = this.repository.create(Shopware.Context.api);
-            console.log(this.bundle.products);
+            // console.log(this.bundle.products);
         },
 
         onClickSave() {
             this.isLoading = true;
+            console.log(this.bundle);
             this.repository.save(this.bundle, Shopware.Context.api).then(() => {
                 this.isLoading = false;
                 // this.processSuccess = true;

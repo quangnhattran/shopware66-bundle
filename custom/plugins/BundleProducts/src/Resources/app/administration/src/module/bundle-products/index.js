@@ -24,17 +24,17 @@ Shopware.Module.register('bundle-products', {
         },
         'create': {
             component: 'bundle-create',
-            path: 'create'/*,
+            path: 'create',
             meta: {
                 parentPath: 'bundle.products.index'
-            }*/
+            }
         },
         'detail': {
             component: 'bundle-detail',
-            path: 'detail/:id'/*,
+            path: 'detail/:id',
             meta: {
                 parentPath: 'bundle.products.index'
-            }*/
+            }
         }
     },
 

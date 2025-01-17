@@ -31,6 +31,7 @@ Component.register('bundle-list', {
         createdComponent() {
             this.repository = this.repositoryFactory.create('bundle');
             this.repository.search(new Criteria(), Shopware.Context.api).then((result) => {
+                console.log(result);
                 this.bundles = result;
             })
         },
@@ -39,7 +40,7 @@ Component.register('bundle-list', {
                 {
                     property: 'name',
                     label: this.$tc('bundle.list.columnName'),
-                    routerLink: 'bundle.details',
+                    routerLink: 'bundle.products.detail',
                     inlineEdit: 'string',
                     allowResize: true,
                     primary: true

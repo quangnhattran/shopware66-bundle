@@ -16,11 +16,9 @@ Component.register('bundle-detail', {
     data() {
         return {
             bundle: null,
-            products: null,
             isLoading: false,
             processSuccess: false,
             repository: null,
-            productRepository: null,
             productCriteria: this.createProductCriteria()
         };
     },
@@ -38,11 +36,6 @@ Component.register('bundle-detail', {
     methods: {
         createdComponent() {
             this.repository = this.repositoryFactory.create('bundle');
-            this.productRepository = this.repositoryFactory.create('product');
-            this.productRepository.search(new Criteria(), Shopware.Context.api).then((result) => {
-                this.products = result;
-                console.log(this.products);
-            })
             this.getBundle();
         },
 
