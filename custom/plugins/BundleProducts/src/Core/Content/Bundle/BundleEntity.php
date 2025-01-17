@@ -11,7 +11,7 @@ class BundleEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected string $name;
+    protected ?string $name;
 
     protected string $discountType;
 
@@ -21,7 +21,7 @@ class BundleEntity extends Entity
 
     protected ProductCollection $products;
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }

@@ -1,22 +1,22 @@
 <?php declare(strict_types=1);
 
-namespace BundleProducts;
+namespace DemoPlugin;
 
-use Doctrine\DBAL\Connection;
-use Shopware\Core\Framework\DataAbstractionLayer\Indexing\MessageQueue\IterateEntityIndexerMessage;
-use Shopware\Core\Framework\Migration\IndexerQueuer;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
 use Shopware\Core\Framework\Plugin\Context\DeactivateContext;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
+use DemoPlugin\Service\CustomFieldsInstaller;
 
-class BundleProducts extends Plugin
+class DemoPlugin extends Plugin
 {
     public function install(InstallContext $installContext): void
     {
         // Do stuff such as creating a new payment method
+
+        $this->getCustomFieldsInstaller()->install($installContext->getContext());
     }
 
     public function uninstall(UninstallContext $uninstallContext): void
@@ -27,12 +27,6 @@ class BundleProducts extends Plugin
             return;
         }
 
-        $connection = $this->container->get(Connection::class);
-        $connection->executeQuery('DROP TABLE IF EXISTS `bundle_translation`');
-        $connection->executeQuery('DROP TABLE IF EXISTS `bundle_product`');
-        $connection->executeQuery('DROP TABLE IF EXISTS `bundle`');
-        $connection->executeQuery('ALTER TABLE `product` DROP COLUMN `bundles`');
-
         // Remove or deactivate the data created by the plugin
     }
 
@@ -40,6 +34,8 @@ class BundleProducts extends Plugin
     {
         // Activate entities, such as a new payment method
         // Or create new entities here, because now your plugin is installed and active for sure
+
+        $this->getCustomFieldsInstaller()->addRelations($activateContext->getContext());
     }
 
     public function deactivate(DeactivateContext $deactivateContext): void
@@ -59,5 +55,17 @@ class BundleProducts extends Plugin
 
     public function postUpdate(UpdateContext $updateContext): void
     {
+    }
+
+    private function getCustomFieldsInstaller(): CustomFieldsInstaller
+    {
+        if ($this->container->has(CustomFieldsInstaller::class)) {
+            return $this->container->get(CustomFieldsInstaller::class);
+        }
+
+        return new CustomFieldsInstaller(
+            $this->container->get('custom_field_set.repository'),
+            $this->container->get('custom_field_set_relation.repository')
+        );
     }
 }

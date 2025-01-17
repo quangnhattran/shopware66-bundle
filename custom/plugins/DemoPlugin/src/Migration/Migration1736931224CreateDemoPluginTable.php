@@ -1,21 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace BundleProducts\Migration;
+namespace DemoPlugin\Migration;
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Migration\MigrationStep;
 
-class Migration1736913824CreateBundleTable extends MigrationStep
+class Migration1736931224CreateDemoPluginTable extends MigrationStep
 {
     public function getCreationTimestamp(): int
     {
-        return 1736913824;
+        return 1736931224;
     }
 
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
-CREATE TABLE IF NOT EXISTS `bundle` (
+CREATE TABLE IF NOT EXISTS `demo_plugin` (
     `id` BINARY(16) NOT NULL,
     `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci,
     `description` VARCHAR(255) COLLATE utf8mb4_unicode_ci,
