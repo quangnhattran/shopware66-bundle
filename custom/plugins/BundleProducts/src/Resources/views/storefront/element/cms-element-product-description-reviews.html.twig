@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-product-description-reviews.html.twig' %}
+{% block element_product_description_reviews_tabs_navigation_description %}
+    {{ parent() }}
+
+    <li class="nav-item">
+        <a class="nav-link product-detail-tab-navigation-link description-tab"
+           id="bundle-tab"
+           data-bs-toggle="tab"
+           data-off-canvas-tabs="true"
+           href="#bundle-tab-pane"
+           role="tab"
+           aria-controls="bundle-tab-pane"
+           aria-selected="true">
+            <span>{{ 'bundle.detail.tabText'|trans }}</span>
+        </a>
+    </li>
+{% endblock %}
+{% block element_product_description_reviews_tabs_content_description %}
+    {{ parent() }}
+    {% if page.product.extensions.bundles.elements|length > 0 %}
+        {% sw_include '@BundleProducts/storefront/element/bundle-slider.html.twig' with {'bundles': page.product.extensions.bundles.elements} %}
+    {% endif %}
+{% endblock %}

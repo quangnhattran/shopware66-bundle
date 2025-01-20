@@ -33,6 +33,7 @@
                                 :localMode="bundle.isNew()"
                                 :label="$t('bundle.detail.assignProductsLabel')"
                                 :entityCollection="bundle.products"
+                                :criteria="productCriteria"
                                 @update:entity-collection="bundle.products = $event">
                         </sw-entity-many-to-many-select>
                     </sw-card>

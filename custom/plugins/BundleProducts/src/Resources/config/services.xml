@@ -22,5 +22,20 @@
             <tag name="shopware.entity.extension" />
         </service>
 
+        <service id="BundleProducts\Service\ProductPageCriteriaSubscriber">
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="BundleProducts\Core\Checkout\Cart\BundleCartProcessor">
+            <argument id="bundle.repository" type="service" />
+            <argument id="Shopware\Core\Checkout\Cart\Price\PercentagePriceCalculator" type="service"></argument>
+            <argument id="Shopware\Core\Checkout\Cart\Price\AbsolutePriceCalculator" type="service"></argument>
+            <argument id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator" type="service"></argument>
+
+            <!-- Inject before product processor (5000) -->
+            <tag name="shopware.cart.processor" priority="6000" />
+            <tag name="shopware.cart.collector" priority="6000" />
+        </service>
+
     </services>
 </container>
